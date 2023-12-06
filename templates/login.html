@@ -1,0 +1,17 @@
+{% extends "inc/base.html" %}
+
+{% load bootstrap5 %}
+{% block content %}
+
+<h1>Log In</h1>
+<form novalidate action="/login/" method="post">
+    {% csrf_token %}
+    {% bootstrap_form form %}
+    <button type="submit" class="btn btn-primary">Log in</button>
+</form>
+
+<p class="new-account-btn">Don't have an account yet?
+    <a href="{% url 'signup' %}">Create it!</a>
+</p>
+
+{% endblock %}

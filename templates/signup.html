@@ -1,0 +1,16 @@
+{% extends "inc/base.html" %}
+
+{% load bootstrap5 %}
+{% block content %}
+
+<h1>Registration</h1>
+<form novalidate action="/signup/" method="post">
+    {% csrf_token %}
+    {% bootstrap_form form %}
+    <button type="submit" class="btn btn-primary">Register</button>
+</form>
+<p class="new-account-btn">Already have an account?
+    <a href="{% url 'login' %}">Log in!</a>
+</p>
+
+{% endblock %}

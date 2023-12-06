@@ -1,0 +1,53 @@
+
+{% extends "inc/base.html" %}
+
+{% load bootstrap5 %}
+{% load static %}
+
+{% block content %}
+
+<div class="row">
+    <div class="col-3">
+        <div class="question-avatar">
+            {% if question.user.avatar %}
+            <img src="../{{ question.user.avatar }}">
+            {% else %}
+                <img src="{% static 'img/default.png' %}">
+            {% endif %}
+        </div>
+        <div class="question-likes-module">
+            {% include 'inc/likes.html' %}
+        </div>
+    </div>
+    <div class="col-9">
+        <h1> {{ question.title }} </h1>
+        <p> {{ question.text }} </p>
+        <div class="row">
+            {% include 'inc/tags.html' %}
+            {% include 'inc/from_user.html' %}
+        </div>
+    </div>
+</div>
+<hr />
+<h2>Answers:</h2>
+
+{% for answer in answers %}
+    {% include 'inc/answer_template.html' %}
+{% endfor %}
+
+{% if answers|length %}
+    {% include 'inc/paginator.html' %} 
+{% else %}
+    {% include 'inc/empty_list.html' %}
+{% endif %}
+
+<hr />
+<div class="mb-3 add-answer">
+    <form novalidate action="{% url 'question' question_id=question.id %}" method="POST">
+        {% csrf_token %}
+        {% bootstrap_form form %}
+        <button type="submit" class="btn btn-primary">Answer</button>
+    </form>
+</div>
+
+{% endblock %}
